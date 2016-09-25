@@ -1,0 +1,311 @@
+dvl_filter: {filter_time: 3.0}
+ekf_map:
+  base_link_frame: sparus2
+  disabled_at_startup: true
+  frequency: 25
+  imu0: /sensors/imu
+  imu0_config: [false, false, false, true, true, true, false, false, false, true,
+    true, true, false, false, false]
+  imu0_differential: false
+  imu0_queue_size: 10
+  imu0_relative: false
+  imu0_remove_gravitational_acceleration: true
+  initial_estimate_covariance: [1e-9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    1e-9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1e-9, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 1e-9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1e-9,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1e-9, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 1e-9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1e-9, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1e-9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 1e-9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1e-9, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1e-9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 1e-9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1e-9, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1e-9]
+  map_frame: map
+  odom_frame: odom
+  pose0: /sensors/depth_map
+  pose0_config: [false, false, true, false, false, false, false, false, false, false,
+    false, false, false, false, false]
+  pose0_differential: false
+  pose0_queue_size: 10
+  pose0_relative: false
+  pose1: /sensors/gps
+  pose1_config: [true, true, false, false, false, false, false, false, false, false,
+    false, false, false, false, false]
+  pose1_differential: false
+  pose1_queue_size: 10
+  pose1_relative: false
+  process_noise_covariance: [0.05, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.05,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.06, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0.03, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.05, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.06, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0.025, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.025, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.04, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0.01, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.01, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.02, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0.01, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.01, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.015]
+  sensor_timeout: 0.1
+  transform_time_offset: 0.0
+  twist0: /sensors/dvl_filtered
+  twist0_config: [false, false, false, false, false, false, true, true, true, false,
+    false, false, false, false, false]
+  twist0_differential: false
+  twist0_queue_size: 10
+  twist0_relative: false
+  twist1: /sensors/vo
+  twist1_config: [false, false, false, false, false, false, true, true, true, true,
+    true, true, false, false, false]
+  twist1_differential: false
+  twist1_queue_size: 10
+  twist1_relative: false
+  world_frame: map
+ekf_odom:
+  base_link_frame: sparus2
+  disabled_at_startup: false
+  frequency: 25
+  imu0: /sensors/imu
+  imu0_config: [false, false, false, true, true, true, false, false, false, true,
+    true, true, false, false, false]
+  imu0_differential: false
+  imu0_queue_size: 10
+  imu0_relative: false
+  imu0_remove_gravitational_acceleration: true
+  initial_estimate_covariance: [1e-9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    1e-9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1e-9, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 1e-9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1e-9,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1e-9, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 1e-9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1e-9, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1e-9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 1e-9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1e-9, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1e-9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 1e-9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1e-9, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1e-9]
+  map_frame: map
+  odom_frame: odom
+  pose0: /sensors/depth_odom
+  pose0_config: [false, false, true, false, false, false, false, false, false, false,
+    false, false, false, false, false]
+  pose0_differential: false
+  pose0_queue_size: 10
+  pose0_relative: false
+  process_noise_covariance: [0.05, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.05,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.06, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0.03, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.05, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.06, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0.025, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.025, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.04, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0.01, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.01, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.02, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0.01, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.01, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.015]
+  sensor_timeout: 0.1
+  transform_time_offset: 0.0
+  twist0: /sensors/dvl_filtered
+  twist0_config: [false, false, false, false, false, false, true, true, true, false,
+    false, false, false, false, false]
+  twist0_differential: false
+  twist0_queue_size: 10
+  twist0_relative: false
+  twist1: /sensors/vo
+  twist1_config: [false, false, false, false, false, false, true, true, true, true,
+    true, true, false, false, false]
+  twist1_differential: false
+  twist1_queue_size: 10
+  twist1_relative: false
+  world_frame: odom
+frames:
+  base_link: sparus2
+  map: map
+  odom: odom
+  sensors: {buoy: buoy, depth: depth, dvl: dvl, gps: gps, imu: imu, laser: laser,
+    modem: modem, origin_suffix: origin, sonar: sonar, stereo_camera: stereo_down,
+    stereo_camera_optical: left_optical, usbl: usbl}
+nav_status: {places_dir: /home/eric/catkin_ws/src/turbot_stack/turbot/turbot/config/places}
+navigator: {ned_origin_lat: 39.7180333333, ned_origin_lon: 2.58710666667}
+plot_marker_delayed: {a: 1.0, b: 1.0, duration: 10, frame_id: /modem_origin, g: 1.0,
+  size: 0.25}
+plot_marker_gps: {b: 1.0, duration: 10, frame_id: /gps_origin, size: 0.25}
+plot_marker_raw: {duration: 10, frame_id: /modem_origin, g: 1.0, size: 0.25}
+robot_description: "<?xml version=\"1.0\"?>\n<robot name=\"Sparus2\">\n\n<!-- Links\
+  \ -->\n\n  <link name=\"sparus2\">\n    <visual>\n      <origin xyz=\"0.0 0 0\"\
+  \ rpy=\"-1.57 0 0\"/>\n      <geometry>\n        <mesh filename=\"package://turbot/models/sparus2.3ds\"\
+  \ scale=\"1 1 1\"/>\n      </geometry>\n    </visual>\n  </link>\n\n    <!-- sensors\
+  \ -->\n    <link name=\"imu\" />\n    <link name=\"depth\" />\n    <link name=\"\
+  dvl\" />\n    <link name=\"stereo_down\" />\n    <link name=\"left_optical\" />\n\
+  \    <link name=\"modem\" />\n    <link name=\"sonar\" />\n    <link name=\"laser\"\
+  \ />\n    <link name=\"gps\" />\n\n    <joint name=\"imu\" type=\"fixed\">\n   \
+  \   <parent link=\"sparus2\"/>\n      <child link=\"imu\"/>\n      <origin xyz=\"\
+  0.36377 -0.02093 -0.08490\" rpy=\"1.55422 0.0008727 1.806416\" />\n    </joint>\n\
+  \n    <joint name=\"depth\" type=\"fixed\">\n      <parent link=\"sparus2\"/>\n\
+  \      <child link=\"depth\"/>\n      <origin xyz=\"0.390 0.0 0.0\" rpy=\"0.0 0.0\
+  \ 0.0\" />\n    </joint>\n\n    <joint name=\"dvl\" type=\"fixed\">\n      <parent\
+  \ link=\"sparus2\"/>\n      <child link=\"dvl\"/>\n      <origin xyz=\"-0.41452\
+  \ 0.0 0.11023\" rpy=\"3.141592654 0.0 2.35619449\" />\n    </joint>\n\n    <joint\
+  \ name=\"stereo_down\" type=\"fixed\">\n      <parent link=\"sparus2\"/>\n     \
+  \ <child link=\"stereo_down\"/>\n      <origin xyz=\"0.79325 -0.0725 0.1097\" rpy=\"\
+  0.0 0.0 1.5708\" />\n    </joint>\n\n    <joint name=\"left_optical\" type=\"fixed\"\
+  >\n      <parent link=\"stereo_down\"/>\n      <child link=\"left_optical\"/>\n\
+  \      <origin xyz=\"0.0 0.0 0.0\" rpy=\"0.0 0.0 0.0\" />\n    </joint>\n\n    <joint\
+  \ name=\"modem\" type=\"fixed\">\n      <parent link=\"sparus2\"/>\n      <child\
+  \ link=\"modem\"/>\n      <origin xyz=\"0.47 0.0 -0.155\" rpy=\"0.0 0.0 0.0\" />\n\
+  \    </joint>\n\n    <joint name=\"sonar\" type=\"fixed\">\n      <parent link=\"\
+  sparus2\"/>\n      <child link=\"sonar\"/>\n      <origin xyz=\"0.828 0.0 -0.0891\"\
+  \ rpy=\"0.0 0.0 0.0\" />\n    </joint>\n\n    <joint name=\"laser\" type=\"fixed\"\
+  >\n      <parent link=\"sparus2\"/>\n      <child link=\"laser\"/>\n      <origin\
+  \ xyz=\"0.52 0.0 0.112\" rpy=\"0.12217 0.0 1.5708\" />\n    </joint>\n\n    <joint\
+  \ name=\"gps\" type=\"fixed\">\n      <parent link=\"sparus2\"/>\n      <child link=\"\
+  gps\"/>\n      <origin xyz=\"-0.39 0.0 -0.365\" rpy=\"0.0 0.0 0.0\" />\n  </joint>\n\
+  \  \n</robot>\n"
+rosdistro: 'kinetic
+
+  '
+roslaunch:
+  uris: {host_ericpc__39438: 'http://ericPC:39438/'}
+rosversion: '1.12.2
+
+  '
+run_id: 0fd91b44-80b8-11e6-a12c-8434977ee093
+sensors:
+  depth: {enable: true, max_init_time: 30.0, min_frequency: 5.0, required_at_startup: true}
+  dvl: {enable: true, max_init_time: 30.0, min_frequency: 2.0, required_at_startup: true}
+  dvl_bottom_covariance: 0.002
+  dvl_max_v: 1.5
+  dvl_water_covariance: 0.02
+  enable_safety: false
+  gps: {enable: true, max_init_time: 30.0, min_frequency: 0.0, required_at_startup: true}
+  gps_init_filter_size: 4
+  gps_min_depth: 0.3
+  gps_only_for_init: false
+  imu: {enable: true, max_init_time: 30.0, min_frequency: 5.0, required_at_startup: true}
+  max_num_errors: 100
+  modem: {enable: true, max_init_time: 30.0, min_frequency: 0.0, required_at_startup: false}
+  visual_odometry_covariance_xy: 0.002
+  visual_odometry_covariance_z: 0.05
+  vo: {enable: true, max_init_time: 30.0, min_frequency: 1.0, required_at_startup: false}
+stereo_down:
+  image_proc_decimate_left_x2: {decimation_x: 2, decimation_y: 2, height: 0, interpolation: 0,
+    width: 0, x_offset: 0, y_offset: 0}
+  image_proc_decimate_right_x2: {decimation_x: 2, decimation_y: 2, height: 0, interpolation: 0,
+    width: 0, x_offset: 0, y_offset: 0}
+  left:
+    image_color:
+      compressed: {format: jpeg, jpeg_quality: 80, png_level: 9}
+      compressedDepth: {depth_max: 10.0, depth_quantization: 100.0, png_level: 9}
+      theora: {keyframe_frequency: 64, optimize_for: 1, quality: 31, target_bitrate: 800000}
+    image_mono:
+      compressed: {format: jpeg, jpeg_quality: 80, png_level: 9}
+      compressedDepth: {depth_max: 10.0, depth_quantization: 100.0, png_level: 9}
+      theora: {keyframe_frequency: 64, optimize_for: 1, quality: 31, target_bitrate: 800000}
+    image_rect:
+      compressed: {format: jpeg, jpeg_quality: 80, png_level: 9}
+      compressedDepth: {depth_max: 10.0, depth_quantization: 100.0, png_level: 9}
+      theora: {keyframe_frequency: 64, optimize_for: 1, quality: 31, target_bitrate: 800000}
+    image_rect_color:
+      compressed: {format: jpeg, jpeg_quality: 80, png_level: 9}
+      compressedDepth: {depth_max: 10.0, depth_quantization: 100.0, png_level: 9}
+      theora: {keyframe_frequency: 64, optimize_for: 1, quality: 31, target_bitrate: 800000}
+  right:
+    image_color:
+      compressed: {format: jpeg, jpeg_quality: 80, png_level: 9}
+      compressedDepth: {depth_max: 10.0, depth_quantization: 100.0, png_level: 9}
+      theora: {keyframe_frequency: 64, optimize_for: 1, quality: 31, target_bitrate: 800000}
+    image_mono:
+      compressed: {format: jpeg, jpeg_quality: 80, png_level: 9}
+      compressedDepth: {depth_max: 10.0, depth_quantization: 100.0, png_level: 9}
+      theora: {keyframe_frequency: 64, optimize_for: 1, quality: 31, target_bitrate: 800000}
+    image_rect:
+      compressed: {format: jpeg, jpeg_quality: 80, png_level: 9}
+      compressedDepth: {depth_max: 10.0, depth_quantization: 100.0, png_level: 9}
+      theora: {keyframe_frequency: 64, optimize_for: 1, quality: 31, target_bitrate: 800000}
+    image_rect_color:
+      compressed: {format: jpeg, jpeg_quality: 80, png_level: 9}
+      compressedDepth: {depth_max: 10.0, depth_quantization: 100.0, png_level: 9}
+      theora: {keyframe_frequency: 64, optimize_for: 1, quality: 31, target_bitrate: 800000}
+  scaled_x2:
+    left:
+      image_color:
+        compressed: {format: jpeg, jpeg_quality: 80, png_level: 9}
+        compressedDepth: {depth_max: 10.0, depth_quantization: 100.0, png_level: 9}
+        theora: {keyframe_frequency: 64, optimize_for: 1, quality: 31, target_bitrate: 800000}
+      image_mono:
+        compressed: {format: jpeg, jpeg_quality: 80, png_level: 9}
+        compressedDepth: {depth_max: 10.0, depth_quantization: 100.0, png_level: 9}
+        theora: {keyframe_frequency: 64, optimize_for: 1, quality: 31, target_bitrate: 800000}
+      image_raw:
+        compressed: {format: jpeg, jpeg_quality: 80, png_level: 9}
+        compressedDepth: {depth_max: 10.0, depth_quantization: 100.0, png_level: 9}
+        theora: {keyframe_frequency: 64, optimize_for: 1, quality: 31, target_bitrate: 800000}
+      image_rect:
+        compressed: {format: jpeg, jpeg_quality: 80, png_level: 9}
+        compressedDepth: {depth_max: 10.0, depth_quantization: 100.0, png_level: 9}
+        theora: {keyframe_frequency: 64, optimize_for: 1, quality: 31, target_bitrate: 800000}
+      image_rect_color:
+        compressed: {format: jpeg, jpeg_quality: 80, png_level: 9}
+        compressedDepth: {depth_max: 10.0, depth_quantization: 100.0, png_level: 9}
+        theora: {keyframe_frequency: 64, optimize_for: 1, quality: 31, target_bitrate: 800000}
+    right:
+      image_color:
+        compressed: {format: jpeg, jpeg_quality: 80, png_level: 9}
+        compressedDepth: {depth_max: 10.0, depth_quantization: 100.0, png_level: 9}
+        theora: {keyframe_frequency: 64, optimize_for: 1, quality: 31, target_bitrate: 800000}
+      image_mono:
+        compressed: {format: jpeg, jpeg_quality: 80, png_level: 9}
+        compressedDepth: {depth_max: 10.0, depth_quantization: 100.0, png_level: 9}
+        theora: {keyframe_frequency: 64, optimize_for: 1, quality: 31, target_bitrate: 800000}
+      image_raw:
+        compressed: {format: jpeg, jpeg_quality: 80, png_level: 9}
+        compressedDepth: {depth_max: 10.0, depth_quantization: 100.0, png_level: 9}
+        theora: {keyframe_frequency: 64, optimize_for: 1, quality: 31, target_bitrate: 800000}
+      image_rect:
+        compressed: {format: jpeg, jpeg_quality: 80, png_level: 9}
+        compressedDepth: {depth_max: 10.0, depth_quantization: 100.0, png_level: 9}
+        theora: {keyframe_frequency: 64, optimize_for: 1, quality: 31, target_bitrate: 800000}
+      image_rect_color:
+        compressed: {format: jpeg, jpeg_quality: 80, png_level: 9}
+        compressedDepth: {depth_max: 10.0, depth_quantization: 100.0, png_level: 9}
+        theora: {keyframe_frequency: 64, optimize_for: 1, quality: 31, target_bitrate: 800000}
+    stereo_image_proc: {P1: 200.0, P2: 400.0, approximate_sync: true, correlation_window_size: 23,
+      disp12MaxDiff: 0, disparity_range: 128, fullDP: false, min_disparity: 5, prefilter_cap: 19,
+      prefilter_size: 9, speckle_range: 4, speckle_size: 200, stereo_algorithm: 0,
+      texture_threshold: 10, uniqueness_ratio: 10.0}
+    stereo_image_proc_debayer_left: {debayer: 0}
+    stereo_image_proc_debayer_right: {debayer: 0}
+    stereo_image_proc_point_cloud2: {approximate_sync: true}
+    stereo_image_proc_rectify_color_left: {interpolation: 1}
+    stereo_image_proc_rectify_color_right: {interpolation: 1}
+    stereo_image_proc_rectify_mono_left: {interpolation: 1}
+    stereo_image_proc_rectify_mono_right: {interpolation: 1}
+  stereo_image_proc: {P1: 200.0, P2: 400.0, approximate_sync: true, correlation_window_size: 25,
+    disp12MaxDiff: 0, disparity_range: 144, fullDP: false, min_disparity: 13, prefilter_cap: 31,
+    prefilter_size: 9, speckle_range: 26, speckle_size: 320, stereo_algorithm: 0,
+    texture_threshold: 10, uniqueness_ratio: 10.0}
+  stereo_image_proc_debayer_left: {debayer: 0}
+  stereo_image_proc_debayer_right: {debayer: 0}
+  stereo_image_proc_point_cloud2: {approximate_sync: true}
+  stereo_image_proc_rectify_color_left: {interpolation: 1}
+  stereo_image_proc_rectify_color_right: {interpolation: 1}
+  stereo_image_proc_rectify_mono_left: {interpolation: 1}
+  stereo_image_proc_rectify_mono_right: {interpolation: 1}
+topic_logger:
+  topics: [/absolute_movement/cancel, /absolute_movement/feedback, /absolute_movement/goal,
+    /absolute_movement/result, /absolute_movement/status, /arduino/sensor_state, /cmd_vel,
+    /control/body_force_req, /control/body_velocity_req, /control/keyboard_data, /control/map_ack_ack,
+    /control/map_ack_data, /control/map_ack_ok, /control/merged_body_force_req, /control/merged_body_velocity_req,
+    /control/merged_world_waypoint_req, /control/mission_status, /control/thrusters_data,
+    /control/thrusters_info, /control/trajectory_path, /control/trajectory_tracking_info,
+    /control/waypoint_marker, /control/world_waypoint_req, /sensors/imu_data, /sensors/imu_raw,
+    /sensors/imu, /sensors/gps_raw, /sensors/gps, /sensors/dvl_raw, /sensors/dvl,
+    /sensors/vo_raw, /sensors/modem_delayed_acoustic, /sensors/modem_delayed, /sensors/modem_raw,
+    /sensors/modem, /sensors/modem_used_positions_per, /sensors/modem_position_delay,
+    /sensors/buoy, /sensors/buoy_raw, /sensors/buoy_ned, /sensors/usbllong, /sensors/usblangles,
+    /sensors/dvl_altitude, /sensors/sonar, /orb_tracker/altitude, /altitude_estimator/altitude,
+    /ekf_odom/odometry, /ekf_map/odometry, /navigation/nav_sts, /safety/computer_logger,
+    /safety/emus_bms, /safety/nav_sensors_status, /safety/total_time, /diagnostics,
+    /diagnostics_toplevel_state, /joy, /pose_controller/depth_controller/controller_block/pid/pid_info,
+    /pose_controller/depth_controller/standard_controller_info, /pose_controller/yaw_controller/controller_block/pid/pid_info,
+    /pose_controller/yaw_controller/standard_controller_info, /ps3_joy, /rosout, /sparus/odom_dynamics,
+    /stereo_down_sync/info, /obstacle_detector/obstacle_info, /navigation/nav_sts_acoustic,
+    /usbl/im/in, /usbl/im/out, /modem/im/in, /modem/im/out /analysis/error_modem_raw,
+    /analysis/error_ekf_odom, /analysis/error_ekf_map, /sparus/pat_to_ros_odom, /orb_tracker/altitude,
+    /orb_tracker/odometry]
+use_sim_time: true

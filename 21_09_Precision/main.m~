@@ -1,0 +1,47 @@
+clc;clear;close all;format compact;
+% Analize the precision of the USBL system
+% The data base consists in 5 sets of hovering data
+% USBL measurements are compared with the odometry of the filter
+
+%% Get precision (modem_delayed -vo)
+close all;
+init = [100, 273, 408, 540, 692];
+duration = [95, 82, 73, 81, 73];
+
+file = 
+modem = 
+odom = 
+del_ekf = precision(init, duration,'ekf_vo','modem_delayed','map');
+
+figure(10);
+subplot(211);grid on; title('Mean and Std.Deviation');
+plot(del_ekf.long,del_ekf.mean,'r')
+xlabel('Longitude [m]');ylabel('Mean [m]');
+legend('Raw', Delayed);
+
+subplot(212);grid on;
+plot(del_ekf.long,del_ekf.std,'r')
+xlabel('Longitude [m]');ylabel('Std [m]');
+
+%% Get precision (buoy)
+close all;
+buoy_ned = getPose('ekf_vo',0, 0,'buoy_ned', 0);
+cov_buoy_ned = cov([buoy_ned.position.x,buoy_ned.position.y,buoy_ned.position.z]);
+eig_buoy_ned = eig(cov_buoy_ned);
+
+figure(11);hold on;title('Mean and Std.Deviation');
+plot(buoy_ned.position.y,buoy_ned.position.x);
+xlabel('N [m]');ylabel('E [m]');
+
+
+
+%% Regression
+% 
+% %% CI
+% [upper_ci,lower_ci] = confidenceIntervals(raw_ekf.mean,raw_ekf.std,phi)
+
+%% Plot
+
+
+
+
