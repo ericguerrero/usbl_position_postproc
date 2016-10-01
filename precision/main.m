@@ -17,7 +17,7 @@ plot(altitude_ned.time,altitude_ned.position.z,'o');
 
 %% Get precision (modem_delayed -vo)
 close all;
-init = [100, 273, 408, 540, 692];
+init = [100, 273, 415, 540, 692];
 duration = [95, 82, 73, 81, 73];
 
 file = 'ekf_vo';
