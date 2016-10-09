@@ -1,0 +1,26 @@
+function s = getCloseloop(init, duration,experiment,filter,topic, time0)
+
+closeloop = readSLAMedges([experiment,'/graph_edges.txt']);
+
+A = closeloop(:,4:5)
+B = closeloop(:,7:8)
+
+% Structure
+t_f = 'time';
+t_v = {time1};
+
+x_f = 'x';
+x_v = {filtered(:,4)};
+y_f = 'y';
+y_v = {filtered(:,5)};
+z_f = 'z';
+z_v = {filtered(:,6)};
+
+pos_f = 'position';
+pos_v = struct(x_f,x_v,y_f,y_v,z_f,z_v);
+cov_f = 'covariance';
+cov_v = {filtered(:,11:end)};
+
+
+s = struct(t_f,t_v,pos_f,pos_v,cov_f,cov_v);
+end

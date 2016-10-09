@@ -1,7 +1,6 @@
 function [st] = precision(init, duration,file,modem,odom)
 
 error = {[],[],[],[],[]};
-
 for k=1:length(init)
     % GetData
     [vo, time0] = getNavOdom(file, init(k), duration(k), odom);
@@ -22,7 +21,10 @@ for k=1:length(init)
         y_error = getTrajError([usbl.time, usbl.position.y],[vo.time, vo.position.y]);
         dist = sqrt(x_error.^2 + y_error.^2);
         lon =  sqrt(mean(usbl.position.x)^2 + mean(usbl.position.y)^2);
-
+        
+        traj_m = mean(dist);
+        traj_s = std(dist);
+        
         %% Filter outliers
         outlier = find(dist>4);
         dist(outlier) = [];
@@ -96,15 +98,20 @@ for k=1:length(init)
         xlabel('East [m]')
     end
     
-    
+    figure(6);
+    plot(x_error,y_error,'o');grid on;axis equal; axis([-1 1 -1 1]);
+    title([num2str(lon,2),'m']);
+    ylabel('North [m]')
+    xlabel('East [m]')
+
     
 
     %%
     max_eig(k) = max(eig(cov([x_error',y_error'])));
     min_eig(k) = min(eig(cov([x_error',y_error'])));
     error{k} = dist;
-    m(k) = mean(dist);
-    s(k) = std(dist);
+    mu(k) = mean(dist);
+    sigma(k) = std(dist);
     long(k) = lon;
     slant(k) = sqrt(max_eig(k))/lon;
 end
@@ -123,10 +130,21 @@ x = linspace(min(long),max(long));
 y = polyval(p,x);
 plot(x,y);
 plot(long,max_eig,'*');
+% subplot(3,1,3);hold on;grid on;
+% plot(long,mu,'c');
+% % CI
+% ci_u = mu + sigma./2;
+% ci_d = mu - sigma./2;
+% fill_between_lines(long,ci_u,ci_d,'c',0.3 )
+
+
+
+
+
+
+
 
 
 title('');xlabel('Distance [m]');ylabel('{\lambda}_{max} [m]');
-
-
 
 st = struct('mean',{m}, 'std', {s}, 'error', {error}, 'long', {long}, 'max_eig', {max_eig}, 'min_eig', {slant}, 'slant', {min_eig});

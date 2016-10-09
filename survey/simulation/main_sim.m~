@@ -1,0 +1,139 @@
+clc;clear;close all;format compact;
+% Analize the USBL system accuracy in simulation
+
+
+%% Data
+name = {'EKF  USBL','EKF  ODOM','UKF  USBL','UKF  ODOM'};
+bins_filter = linspace(0,4,100);
+bins_usbl = linspace(0,6,50);
+blue = [0.3010,0.7450,0.9330];
+red = [0.6350,0.0780,0.1840];
+
+linewidth = 1.5;
+init = 80; duration = 1100;
+
+% Get Sim data
+[gt, t0] = getGT('ekf_usbl',init,duration, 'gt'); % Same GT, trajectories from the same simulation
+usbl_del = getPose('ekf_usbl',init,duration,'modem_delayed_acoustic', t0);
+usbl_raw_ekf = getPose('ekf_usbl',init,duration,'modem_raw', t0);
+usbl_raw_ukf = getPose('ukf_usbl',init,duration,'modem_raw', t0);
+
+% Get Estimated Trajectory
+ekf_usbl = getNavOdom('ekf_usbl',init,duration, 'map',t0 ); 
+ekf_odom = getNavOdom('ekf_usbl',init,duration, 'odom',t0 ); 
+ukf_usbl = getNavOdom('ukf_usbl',init,duration, 'map',t0 ); 
+ukf_odom = getNavOdom('ukf_usbl',init,duration, 'odom',t0 ); 
+
+
+% Get GT Offset
+offset = zeros(2,4);
+offset(:,1) = [gt.position.x(1) - ekf_odom.position.x(1); gt.position.y(1) - ekf_odom.position.y(1)];
+offset(:,2) = [gt.position.x(1) - ukf_odom.position.x(1); gt.position.y(1) - ukf_odom.position.y(1)];
+offset(:,3) = [gt.position.x(1) - ekf_usbl.position.x(1); gt.position.y(1) - ekf_usbl.position.y(1)];
+offset(:,4) = [gt.position.x(1) - ukf_usbl.position.x(1); gt.position.y(1) - ukf_usbl.position.y(1)];
+ekf_odom.position.x = ekf_odom.position.x + offset(1,1);
+ekf_odom.position.y = ekf_odom.position.y + offset(2,1);
+ukf_odom.position.x = ukf_odom.position.x + offset(1,2);
+ukf_odom.position.y = ukf_odom.position.y + offset(2,2);
+ekf_usbl.position.x = ekf_usbl.position.x + offset(1,3);
+ekf_usbl.position.y = ekf_usbl.position.y + offset(2,3);
+ukf_usbl.position.x = ukf_usbl.position.x + offset(1,4);
+ukf_usbl.position.y = ukf_usbl.position.y + offset(2,4);
+traj = {ekf_usbl,ekf_odom,ukf_usbl,ukf_odom};
+
+
+%% 
+close all;
+% Conditional plots
+plotXY = true;
+
+figure(1);hold on;grid on;axis equal;
+plot(gt.position.y,gt.position.x,'k','LineWidth',linewidth);
+figure(2);
+subplot(211);hold on;grid on;
+plot(gt.time,gt.position.x,'k','LineWidth',linewidth);
+subplot(212);hold on;grid on;
+plot(gt.time,gt.position.y,'k','LineWidth',linewidth);
+
+color = {blue,red,blue,red};
+for k = 1:size(traj,2)
+    filter = traj{k};
+    
+    % Trajectory Error
+    traj_error_x = getTrajError([filter.time, filter.position.x],[gt.time, gt.position.x]);
+    traj_error_y = getTrajError([filter.time, filter.position.y],[gt.time, gt.position.y]);
+    traj_dist = sqrt(traj_error_x.^2 + traj_error_y.^2);
+    traj_m = mean(traj_dist);
+    traj_s = std(traj_dist);
+    
+    % Plot trajectories
+    if plotXY
+        figure(1);hold on;grid on;axis equal;
+        plot(filter.position.y,filter.position.x,'LineWidth',linewidth);
+        xlabel('East [m]');ylabel('North [m]');
+        legend('GT','EKF  USBL','EKF  ODOM','UKF  USBL','UKF  ODOM');
+    end
+    if plotXY
+        figure(2);
+        subplot(211);hold on;grid on;
+        plot(filter.time,filter.position.x,'LineWidth',linewidth);
+        legend('GT','EKF  USBL','EKF  ODOM','UKF  USBL','UKF  ODOM');
+        ylabel('North [m]');
+
+        subplot(212);hold on;grid on;
+        plot(filter.time,filter.position.y,'LineWidth',linewidth);
+        xlabel('Time [s]');ylabel('East [m]');        
+    end
+    
+    
+    % Plot Error
+    figure(3);hold on;grid on;
+    plot(filter.time,traj_dist,'LineWidth',linewidth);
+    p = polyfit(filter.time,traj_dist',1);
+    fitted = polyval(p,filter.time);
+    plot(filter.time,fitted);
+    xlabel('Time [s]');ylabel('Euclidean Distance Error [m]'); 
+    legend('EKF  USBL','','EKF  ODOM','','UKF  USBL','','UKF  ODOM','');
+   
+    
+    % Plot Error Histogram
+    figure(4);hold on;
+    subplot(2,2,k);
+    histogram(traj_dist,bins_filter,'FaceColor',color{k})
+    title([name{k}, ': {\mu}= ', num2str(traj_m,2), '  {\sigma}= ', num2str(traj_s,2)])
+        
+
+end
+
+figure(5);hold on;
+histogram(usbl_dist,bins_usbl)
+title(['USBL measurement error: {\mu}= ', num2str(usbl_m,2), '  {\sigma}= ', num2str(usbl_s,2)])
+
+%% Plot accumulated Mean error and dispersion
+load('dur.mat');
+color = {'r','g','b','c'};
+for k = 1:size(traj,2)
+    figure(7);hold on;grid on;axis([min(dur), max(dur), 0,3.5]);
+    plot(dur,mu(k,:),color{k});
+    
+    % CI
+    ci_u = mu(k,:) + sigma(k,:);
+    ci_d = mu(k,:) - sigma(k,:);
+    fill_between_lines(dur,ci_u,ci_d,color{k},0.3 )
+    legend('EKF  USBL','','EKF  ODOM','','UKF  USBL','','UKF  ODOM','');
+    xlabel('Time [s]');ylabel('Euclidean Distance Error [m]'); 
+end
+
+
+%% Get USBL Error
+usbl_error_x = getTrajError([usbl_del.time, usbl_del.position.x],[gt.time, gt.position.x]);
+usbl_error_y = getTrajError([usbl_del.time, usbl_del.position.y],[gt.time, gt.position.y]);
+usbl_dist = sqrt(usbl_error_x.^2 + usbl_error_y.^2);
+usbl_m = mean(usbl_dist);
+usbl_s = std(usbl_dist);
+
+traj_error_x = getTrajError([usbl_del.time, usbl_del.position.x],[gt.time, gt.position.x]);
+traj_error_y = getTrajError([usbl_del.time, usbl_del.position.y],[gt.time, gt.position.y]);
+traj_dist = sqrt(traj_error_x.^2 + traj_error_y.^2);
+figure(10);hold on;grid on;
+plot(usbl_del.time,traj_dist,'o');
